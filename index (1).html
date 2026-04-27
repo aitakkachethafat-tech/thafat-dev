@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thafat Ait Akkache — Ingénieure Embarquée</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f5;
+    --white: #ffffff;
+    --ink: #1a1a2e;
+    --muted: #6b6880;
+    --coral: #ff5757;
+    --violet: #6c3ce1;
+    --lime: #b8f000;
+    --sky: #4fc3f7;
+    --peach: #ff9a6c;
+    --mint: #00c896;
+    --border: #e8e4f0;
+    --mono: 'DM Sans', sans-serif;
+    --display: 'Fraunces', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(250,248,245,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--violet);
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--violet); }
+
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    gap: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(108,60,225,0.1), transparent 70%);
+    top: -150px; right: -100px;
+    pointer-events: none;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,87,87,0.08), transparent 70%);
+    bottom: 0; left: 100px;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--lime);
+    color: var(--ink);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #333;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-name {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-name em { font-style: italic; color: var(--coral); }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.8rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 100px;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary { background: var(--violet); color: #fff; }
+  .btn-primary:hover { background: #5730c4; transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--ink); border-color: var(--border); }
+  .btn-outline:hover { border-color: var(--violet); color: var(--violet); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeIn 1s ease 0.3s both;
+  }
+
+  @media (max-width: 768px) {
+    #hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+    .hero-right { display: none; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+  }
+
+  .float-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s;
+  }
+
+  .float-card:hover { transform: translateX(-4px); }
+  .float-card:nth-child(2) { margin-left: 2rem; }
+  .float-card:nth-child(3) { margin-left: 1rem; }
+
+  .fc-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+
+  .fc-label { font-size: 0.7rem; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+  .fc-value { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+
+  .section { padding: 5rem 4rem; max-width: 1080px; margin: 0 auto; }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.6rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .skill-card.c1::before { background: var(--coral); }
+  .skill-card.c2::before { background: var(--violet); }
+  .skill-card.c3::before { background: var(--sky); }
+  .skill-card.c4::before { background: var(--mint); }
+  .skill-card.c5::before { background: var(--peach); }
+  .skill-card.c6::before { background: var(--lime); }
+
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+
+  .sk-emoji { font-size: 1.8rem; margin-bottom: 0.8rem; display: block; }
+  .sk-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+  .sk-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.8rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    background: var(--bg);
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .proj-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .proj-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+
+  .proj-num {
+    font-family: var(--display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .proj-card.p1 .proj-num { color: var(--coral); }
+  .proj-card.p2 .proj-num { color: var(--violet); }
+  .proj-card.p3 .proj-num { color: var(--sky); }
+  .proj-card.p4 .proj-num { color: var(--mint); }
+  .proj-card.p5 .proj-num { color: var(--peach); }
+
+  .proj-name { font-weight: 700; font-size: 1.05rem; }
+  .proj-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; flex: 1; }
+
+  .timeline { display: flex; flex-direction: column; }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 130px 2px 1fr;
+    gap: 0 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .tl-date { font-weight: 700; font-size: 0.8rem; color: var(--muted); text-align: right; padding-top: 4px; }
+
+  .tl-line { background: var(--border); position: relative; }
+
+  .tl-line::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+
+  .tl-item.t1 .tl-line::before { background: var(--coral); }
+  .tl-item.t2 .tl-line::before { background: var(--violet); }
+  .tl-item.t3 .tl-line::before { background: var(--sky); }
+  .tl-item.t4 .tl-line::before { background: var(--mint); }
+
+  .tl-role { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
+  .tl-company { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .tl-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+  .tl-item.t1 .tl-company { color: var(--coral); }
+  .tl-item.t2 .tl-company { color: var(--violet); }
+  .tl-item.t3 .tl-company { color: var(--sky); }
+  .tl-item.t4 .tl-company { color: var(--mint); }
+
+  #contact {
+    background: var(--ink);
+    color: #fff;
+    text-align: center;
+    padding: 6rem 3rem;
+  }
+
+  #contact .section-eyebrow { color: var(--lime); }
+  #contact .section-title { color: #fff; margin-bottom: 1rem; }
+  #contact p { color: rgba(255,255,255,0.45); margin-bottom: 2.5rem; font-size: 0.9rem; line-height: 1.8; }
+
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    color: #fff; text-decoration: none;
+    font-size: 0.85rem; font-weight: 600;
+    padding: 0.85rem 1.6rem;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover { background: var(--lime); color: var(--ink); border-color: var(--lime); transform: translateY(-2px); }
+
+  footer {
+    background: var(--ink);
+    text-align: center;
+    padding: 1.5rem;
+    color: rgba(255,255,255,0.2);
+    font-size: 0.75rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+  .hero-left > * { animation: slideUp 0.6s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.3s; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  .full-section {
+    background: var(--white);
+    padding: 5rem max(4rem, 5vw);
+  }
+
+  .full-section-inner { max-width: 1080px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Thafat.</div>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#experience">Parcours</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Disponible — Bordeaux &amp; France</div>
+    <h1 class="hero-name">Ingénieure<br><em>embarquée</em><br>&amp; IoT</h1>
+    <p class="hero-sub">C · Linux · STM32 · Olimex · Nvidia Jetson — je développe du firmware et des systèmes du composant au cloud.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+      <a href="mailto:thafat.aitakkache.cdi@gmail.com" class="btn btn-outline">Me contacter</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="float-card">
+      <div class="fc-icon" style="background:#fff0f0;">🔌</div>
+      <div>
+        <div class="fc-label">Microcontrôleurs</div>
+        <div class="fc-value">STM32 · ESP32 · Olimex · Jetson</div>
+      </div>
+    </div>
+    <div class="float-card">
+      <div class="fc-icon" style="background:#f3f0ff;">⚙️</div>
+      <div>
+        <div class="fc-label">Langages</div>
+        <div class="fc-value">C · C++ · Python · Java</div>
+      </div>
+    </div>
+    <div class="float-card">
+      <div class="fc-icon" style="background:#f0fff8;">📡</div>
+      <div>
+        <div class="fc-label">Protocoles</div>
+        <div class="fc-value">UART · SPI · I2C · CAN · MQTT</div>
+      </div>
+    </div>
+    <div class="float-card">
+      <div class="fc-icon" style="background:#fffbf0;">🐧</div>
+      <div>
+        <div class="fc-label">OS &amp; Temps réel</div>
+        <div class="fc-value">Linux embarqué · FreeRTOS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="about" class="section">
+  <span class="section-eyebrow">Qui suis-je</span>
+  <h2 class="section-title reveal">Double diplôme,<br>double culture</h2>
+  <div class="reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; max-width:760px;">
+    <p style="color:var(--muted); line-height:1.9; font-size:0.9rem;">Ingénieure double diplômée (Master Université de Bordeaux + Master UMMTO Algérie) spécialisée en systèmes embarqués. Je maîtrise la chaîne complète : du composant électronique jusqu'au logiciel système.</p>
+    <p style="color:var(--muted); line-height:1.9; font-size:0.9rem;">Appétence pour les environnements contraints — basse consommation, temps réel, RF — et pour les profils hardware + software rares sur le marché. Basée à Bordeaux/Mérignac, mobilité nationale.</p>
+  </div>
+</div>
+
+<div id="skills" class="full-section">
+  <div class="full-section-inner">
+    <span class="section-eyebrow">Stack technique</span>
+    <h2 class="section-title reveal">Ce que je maîtrise</h2>
+    <div class="skills-grid reveal">
+      <div class="skill-card c1">
+        <span class="sk-emoji">⚙️</span>
+        <div class="sk-title">Langages</div>
+        <div class="sk-sub">Bas niveau &amp; orienté objet</div>
+        <div class="tags">
+          <span class="tag">C</span><span class="tag">C++</span><span class="tag">Python</span><span class="tag">Java</span><span class="tag">VHDL</span>
+        </div>
+      </div>
+      <div class="skill-card c2">
+        <span class="sk-emoji">🔌</span>
+        <div class="sk-title">Microcontrôleurs</div>
+        <div class="sk-sub">Cibles embarquées maîtrisées</div>
+        <div class="tags">
+          <span class="tag">STM32</span><span class="tag">ESP32</span><span class="tag">Olimex</span><span class="tag">Jetson Nano</span><span class="tag">EFR32</span>
+        </div>
+      </div>
+      <div class="skill-card c3">
+        <span class="sk-emoji">📡</span>
+        <div class="sk-title">Protocoles</div>
+        <div class="sk-sub">Communication bas niveau</div>
+        <div class="tags">
+          <span class="tag">UART</span><span class="tag">SPI</span><span class="tag">I2C</span><span class="tag">CAN</span><span class="tag">MQTT</span><span class="tag">RF</span>
+        </div>
+      </div>
+      <div class="skill-card c4">
+        <span class="sk-emoji">🐧</span>
+        <div class="sk-title">OS &amp; Temps réel</div>
+        <div class="sk-sub">Environnements d'exécution</div>
+        <div class="tags">
+          <span class="tag">Linux embarqué</span><span class="tag">FreeRTOS</span><span class="tag">Windows</span>
+        </div>
+      </div>
+      <div class="skill-card c5">
+        <span class="sk-emoji">🛠️</span>
+        <div class="sk-title">Outils</div>
+        <div class="sk-sub">Environnement de dev</div>
+        <div class="tags">
+          <span class="tag">CubeIDE</span><span class="tag">Git</span><span class="tag">KiCad</span><span class="tag">GDB</span><span class="tag">Analyseur logique</span>
+        </div>
+      </div>
+      <div class="skill-card c6">
+        <span class="sk-emoji">🤖</span>
+        <div class="sk-title">IA embarquée</div>
+        <div class="sk-sub">Edge ML &amp; inférence</div>
+        <div class="tags">
+          <span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">Jetson Nano</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="projects" class="section">
+  <span class="section-eyebrow">Projets</span>
+  <h2 class="section-title reveal">Ce que j'ai construit</h2>
+  <div class="projects-grid reveal">
+    <div class="proj-card p1">
+      <div class="proj-num">01</div>
+      <div class="proj-name">Firmware IoT — Miecolo</div>
+      <div class="proj-desc">Développement complet d'un firmware en C pour un projet IoT industriel. Communication, intégration de modules et cycle complet de validation en environnement Linux.</div>
+      <div class="tags"><span class="tag">C</span><span class="tag">MQTT</span><span class="tag">Linux</span><span class="tag">IoT</span></div>
+    </div>
+    <div class="proj-card p2">
+      <div class="proj-num">02</div>
+      <div class="proj-name">Embarqué STM32</div>
+      <div class="proj-desc">Configuration des périphériques, drivers UART/SPI/I2C, gestion des interruptions et tâches temps réel avec FreeRTOS sur microcontrôleur STM32.</div>
+      <div class="tags"><span class="tag">C</span><span class="tag">STM32</span><span class="tag">FreeRTOS</span><span class="tag">UART/SPI</span></div>
+    </div>
+    <div class="proj-card p3">
+      <div class="proj-num">03</div>
+      <div class="proj-name">Prototypage Olimex</div>
+      <div class="proj-desc">Développement bas niveau sur cartes Olimex open-hardware. Configuration système et intégration de périphériques sous Linux embarqué.</div>
+      <div class="tags"><span class="tag">C</span><span class="tag">Olimex</span><span class="tag">Linux</span></div>
+    </div>
+    <div class="proj-card p4">
+      <div class="proj-num">04</div>
+      <div class="proj-name">Edge AI — Nvidia Jetson</div>
+      <div class="proj-desc">Déploiement de modèles deep learning sur Jetson Nano pour inférence embarquée. Optimisation mémoire et puissance pour contraintes temps réel.</div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">Jetson Nano</span></div>
+    </div>
+    <div class="proj-card p5">
+      <div class="proj-num">05</div>
+      <div class="proj-name">Conception PCB — KiCad</div>
+      <div class="proj-desc">Conception de cartes électroniques de A à Z : schématique, sélection composants, routage PCB et validation des interfaces de communication.</div>
+      <div class="tags"><span class="tag">KiCad</span><span class="tag">PCB</span><span class="tag">Hardware</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="experience" class="full-section">
+  <div class="full-section-inner">
+    <span class="section-eyebrow">Parcours</span>
+    <h2 class="section-title reveal">Formation &amp; Expérience</h2>
+    <div class="timeline reveal">
+      <div class="tl-item t1">
+        <div class="tl-date">2025</div>
+        <div class="tl-line"></div>
+        <div>
+          <div class="tl-role">Ingénieure Développement Logiciel</div>
+          <div class="tl-company">Miecolo — Stage de fin d'études (6 mois)</div>
+          <div class="tl-desc">Firmware C, intégration de modules logiciels IoT, tests et validation. Environnement Linux.</div>
+        </div>
+      </div>
+      <div class="tl-item t2">
+        <div class="tl-date">2023 – 2025</div>
+        <div class="tl-line"></div>
+        <div>
+          <div class="tl-role">Master 2 — Ingénierie des Systèmes Embarqués</div>
+          <div class="tl-company">Université de Bordeaux</div>
+          <div class="tl-desc">Systèmes temps réel, communication embarquée, prototypage hardware/software.</div>
+        </div>
+      </div>
+      <div class="tl-item t3">
+        <div class="tl-date">2024</div>
+        <div class="tl-line"></div>
+        <div>
+          <div class="tl-role">Ingénieure Hardware &amp; Software</div>
+          <div class="tl-company">Miecolo</div>
+          <div class="tl-desc">Conception PCB sous KiCad, intégration systèmes embarqués, tests de validation des interfaces.</div>
+        </div>
+      </div>
+      <div class="tl-item t4">
+        <div class="tl-date">2020 – 2022</div>
+        <div class="tl-line"></div>
+        <div>
+          <div class="tl-role">Master 2 — Électronique des Systèmes Embarqués</div>
+          <div class="tl-company">UMMTO, Algérie</div>
+          <div class="tl-desc">Électronique analogique et numérique, VHDL, systèmes de communication.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="contact">
+  <span class="section-eyebrow">Contact</span>
+  <h2 class="section-title">Travaillons ensemble</h2>
+  <p>Ouverte aux postes juniors en firmware, IoT et systèmes embarqués.<br>Bordeaux/Mérignac — mobilité nationale.</p>
+  <div class="contact-links">
+    <a href="mailto:thafat.aitakkache.cdi@gmail.com" class="contact-link">✉ thafat.aitakkache.cdi@gmail.com</a>
+    <a href="https://linkedin.com/in/ait-akkache" target="_blank" class="contact-link">in LinkedIn</a>
+    <a href="tel:+33664444845" class="contact-link">☏ +33 6 64 44 48 45</a>
+  </div>
+</section>
+
+<footer>© 2025 Thafat Ait Akkache — Ingénieure Systèmes Embarqués</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.skills-grid, .projects-grid').forEach(parent => {
+    [...parent.children].forEach((child, i) => { child.style.transitionDelay = `${i * 0.07}s`; });
+  });
+</script>
+</body>
+</html>
